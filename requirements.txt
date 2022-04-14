@@ -1,0 +1,6 @@
+matplotlib
+numpy
+PyQt5
+QDarkStyle
+scipy
+wavio

@@ -46,7 +46,7 @@ jobs:
             ASSET_MIME: application/zip
           - os: windows-latest
             TARGET: windows
-            CMD_BUILD: pyinstaller --add-data 'matplotlibrc:.' -F -w -n WavePlayground main.py
+            CMD_BUILD: pyinstaller --add-data 'matplotlibrc;.' -F -w -n WavePlayground main.py
             OUT_FILE_NAME: WavePlayground.exe
             ASSET_MIME: application/vnd.microsoft.portable-executable
     steps:

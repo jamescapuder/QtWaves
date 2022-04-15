@@ -1,3 +1,4 @@
+pyinstaller
 matplotlib
 numpy
 PyQt5

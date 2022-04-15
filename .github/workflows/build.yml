@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    tags:
+      - 'v*'
 
 jobs:
 
@@ -41,16 +43,16 @@ jobs:
             CMD_BUILD: >
                 pyinstaller --add-data "matplotlibrc:." -F -w -n WavePlayground main.py &&
                 cp matplotlibrc dist/matplotlibrc &&
-                zip -r9 WavePlayground dist
-            OUT_FILE_NAME: WavePlayground.zip
+                zip -r9 WavePlaygroundMac dist
+            OUT_FILE_NAME: WavePlaygroundMac.zip
             ASSET_MIME: application/zip
           - os: windows-latest
             TARGET: windows
             CMD_BUILD: > 
               pyinstaller --add-data "matplotlibrc;." -w -n WavePlayground main.py &&
               move matplotlibrc dist\matplotlibrc &&
-              tar.exe -a -c -f WavePlayground.zip dist
-            OUT_FILE_NAME: WavePlayground.zip
+              tar.exe -a -c -f WavePlaygroundWin.zip dist
+            OUT_FILE_NAME: WavePlaygroundWin.zip
             ASSET_MIME: application/vnd.microsoft.portable-executable
     steps:
     - uses: actions/checkout@v1

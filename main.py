@@ -1,6 +1,6 @@
 import sys
 import qdarkstyle
-from PyQt5.QtWidgets import (QWidget, QPushButton, QApplication,
+from PyQt5.QtWidgets import (QWidget, QPushButton, QApplication, QCheckBox,
                              QTableWidget, QTableWidgetItem, QHBoxLayout, QVBoxLayout, QLineEdit,QLabel, QComboBox)
 import PyQt5.QtCore as qc
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
@@ -45,6 +45,7 @@ class PyQtLayout(QWidget):
         self.max_dur = 3
         self.wave_objects = []
         self.rate = 44100
+        self.plot_all = False
         
         #get directory we can write to, create if not present
         self.wavedir = mutils.get_datadir()
@@ -106,7 +107,8 @@ class PyQtLayout(QWidget):
             for v in self.wave_objects:
                 # generates the wave from the params of the current WaveInfo object 
                 current = v.gen_wave(self.rate)
-
+                if (self.plot_all):
+                    self.canvas.axes.plot(max_t, current)
                 #if the current wave is shorter than the accumulator, pad it on the right with 0's
                 #we don't check the other case as final_vec is built using the maximum duration of all present WaveInfo objects
                 if (current.shape[0]<final_vec.shape[0]):
@@ -131,6 +133,11 @@ class PyQtLayout(QWidget):
             self.play_audio_file()
         #redraw the plots
         self.canvas.draw()
+    
+    def plot_all_toggle(self):
+        cbutton = self.sender()
+        self.plot_all = cbutton.isChecked()
+        self.update_plot()
  
     def UI(self):
         """
@@ -141,7 +148,8 @@ class PyQtLayout(QWidget):
         add_button = QPushButton('Add Wave', clicked=self.addWave)
         clear_button = QPushButton('Reset',clicked=self.clear_wave_files)
         play_button = QPushButton('Play', clicked=self.play_audio_file)
-
+        plot_all_radio = QCheckBox('Plot all waves')
+        plot_all_radio.toggled.connect(self.plot_all_toggle)
         #horizontal box for plot area and table
         figs_and_data_hbox = QHBoxLayout()
         #vertical box to put both the plot toolbar and plot canvas 
@@ -168,6 +176,7 @@ class PyQtLayout(QWidget):
         hbox.addLayout(combo_container)
         
         hbox.addWidget(add_button)
+        hbox.addWidget(plot_all_radio)
         vbox.addLayout(hbox)
         vbox.addWidget(clear_button)
         

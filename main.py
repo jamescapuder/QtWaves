@@ -1,14 +1,14 @@
 import sys
 import qdarkstyle
-import matplotlib
-matplotlib.use('Qt5Agg')
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
-from matplotlib.figure import Figure
-
 from PyQt5.QtWidgets import (QWidget, QPushButton, QApplication,
                              QTableWidget, QTableWidgetItem, QHBoxLayout, QVBoxLayout, QLineEdit,QLabel, QComboBox)
 import PyQt5.QtCore as qc
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
+
+import matplotlib
+matplotlib.use('Qt5Agg')
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT as NavigationToolbar
+from matplotlib.figure import Figure
 
 import numpy as np
 import mutils, wavio, os

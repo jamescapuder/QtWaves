@@ -107,12 +107,13 @@ class PyQtLayout(QWidget):
             for v in self.wave_objects:
                 # generates the wave from the params of the current WaveInfo object 
                 current = v.gen_wave(self.rate)
-                if (self.plot_all):
-                    self.canvas.axes.plot(max_t, current)
+
                 #if the current wave is shorter than the accumulator, pad it on the right with 0's
                 #we don't check the other case as final_vec is built using the maximum duration of all present WaveInfo objects
                 if (current.shape[0]<final_vec.shape[0]):
-                    current = np.pad(v, (0, final_vec.shape[0]-v.shape[0]))
+                    current = np.pad(current, (0, final_vec.shape[0]-current.shape[0]))
+                if (self.plot_all):
+                    self.canvas.axes.plot(max_t, current)
                 #add to running total
                 final_vec += current
             #plot the wave

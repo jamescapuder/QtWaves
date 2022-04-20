@@ -40,9 +40,10 @@ jobs:
             TARGET: macos
             CMD_BUILD: >
                 pyinstaller --add-data "matplotlibrc:." -F -w -n WavePlayground main.py &&
-                cp matplotlibrc dist/matplotlibrc &&
-                zip -r9 WavePlaygroundMac dist
-            OUT_FILE_NAME: WavePlaygroundMac.zip
+                cp matplotlibrc dist/WavePlayground/matplotlibrc &&
+                cd dist/ &&
+                zip -r9 WavePlayground WavePlayground.app/
+            OUT_FILE_NAME: WavePlayground.app
             ASSET_MIME: application/zip
           - os: windows-latest
             TARGET: windows

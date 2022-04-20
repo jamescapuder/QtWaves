@@ -191,7 +191,7 @@ class PyQtLayout(QWidget):
         
         self.setLayout(vbox)
         self.setGeometry(0,0,1920, 1080)
-        self.setWindowTitle('PyQt5 Layout')
+        self.setWindowTitle('Wave Playground')
         
         
         self.show()
